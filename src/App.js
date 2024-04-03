@@ -1,39 +1,35 @@
-import logo from './logo.svg';
 import './App.css';
 import { useEffect, useState } from 'react';
+import { Button, Radio, Divider, List, Space } from 'antd'
+
 
 function App() {
-  // const services = fetch("127.0.0.1:3000/haircut-services")
-  // useEffect(() => {
-  //   const fetchDataForPosts = async () => {
-  //     const response = await fetch(
-  //       "127.0.0.1:3000/haircut-services"
-  //     );
+  const [services, setServices] = useState([]);
+  const [activeService, setActiveService] = useState(1);
 
-  //     let postsData = await response.json();
-  //     console.log(postsData);
+  const onChange = (e) => {
+    console.log('radio checked', e.target.value);
+    setActiveService(e.target.value);
+  };
 
-  //   };
+  useEffect(() => {
+    fetch("http://localhost:3000/haircut-services")
+      .then(response => response.json())
+      .then(services => setServices(services))
+      .catch(error => console.error(error));
+  }, []);
 
-  //   fetchDataForPosts();
-  // }, []);
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <Divider orientation="left">Парикмахерские услуги</Divider>
+      <Radio.Group className='servicesList' onChange={onChange} value={activeService}>
+        <Space direction="vertical">
+          {services.map((service => (
+            <Radio value={service.id}>{service.name} ({service.price} руб., {service.duration} мин.)</Radio>
+          )))}
+        </Space>
+      </Radio.Group >
+    </>
   );
 }
 
