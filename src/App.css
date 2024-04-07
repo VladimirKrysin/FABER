@@ -38,6 +38,18 @@
   }
 }
 
-.servicesList {
-  padding-left: 5rem;
+
+.master {
+  margin-top: 1.5rem;
+}
+
+.container {
+  display: flex;
+  margin-left: 2.5rem;
+  margin-top: 1.3rem;
+}
+
+.datePickerContainer {
+  margin-top: 1.5rem;
+  margin-left: 5rem;
 }
