@@ -11,6 +11,8 @@ function ServicesList() {
   const { selectedService, setSelectedService } = useContext(AppContext);
 
   const [services, setServices] = useState([]);
+  const [size, setSize] = useState('middle');
+
   const onChange = (e) => {
     setSelectedService(e.target.value);
   };
@@ -24,20 +26,24 @@ function ServicesList() {
   return (
     <>
       <Divider orientation="left">Парикмахерские услуги</Divider>
-      <Radio.Group
-        className="servicesList"
-        onChange={onChange}
-        value={selectedService}
-      >
-        <Space direction="vertical">
-          {services.map((service) => (
-            <Radio value={service.id}>
-              {service.name} ({service.price} руб., {service.duration} мин.)
-            </Radio>
-          ))}
-        </Space>
-      </Radio.Group>
-      <Link to="/appointment-time">Далее</Link>
+      <div className="page_container">
+        <Radio.Group
+          className="servicesList"
+          onChange={onChange}
+          value={activeService}
+        >
+          <Space direction="vertical">
+            {services.map((service) => (
+              <Radio value={service.id}>
+                {service.name} ({service.price} руб., {service.duration} мин.)
+              </Radio>
+            ))}
+          </Space>
+        </Radio.Group>
+        <Link to="/appointment-time">
+          <Button className="next_button" type="primary" size={size}>Далее</Button>
+        </Link>
+      </div>
     </>
   );
 }

@@ -24,8 +24,7 @@ function App() {
     <>
       <BrowserRouter>
         <h3>
-          Форма записи(тут можно общий для все страниц текст или ещё че-нибудь
-          добавить)
+          Салон FABER
         </h3>
 
         <AppContext.Provider

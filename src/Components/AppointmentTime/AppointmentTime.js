@@ -16,6 +16,7 @@ function AppointmentTime() {
 
   // component state
   const [masters, setMasters] = useState({});
+  const [size, setSize] = useState('middle');
 
   useEffect(() => {
     fetch("http://localhost:3000/masters")
@@ -71,7 +72,9 @@ function AppointmentTime() {
           <div></div>
         )}
       </div>
-      <Link to="/client-info">Далее</Link>
+      <Link to="/client-info">
+        <Button className="next_button" type="primary" size={size}>Далее</Button>
+      </Link>
     </>
   );
 }

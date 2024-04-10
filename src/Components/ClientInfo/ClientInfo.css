@@ -1,0 +1,36 @@
+label {
+  display: block;
+  margin-bottom: 1rem;
+  padding-left: 1.3rem;
+  margin-left: 20rem;
+  padding-top: 0.5rem;
+}
+
+input {
+  margin-left: 0.5rem;
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  border: 0.1rem solid #ccc;
+}
+
+textarea {
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  border: 0.1rem solid #ccc;
+  margin-top: 0.8rem;
+}
+
+.confirm_button {
+  margin-top: 1rem;
+  margin-left: 22rem;
+  width: 9rem;
+}
+
+p {
+  margin-bottom: 0rem;
+}
+
+.title {
+  margin-left: 21rem;
+  margin-bottom: 0.5rem;
+}
