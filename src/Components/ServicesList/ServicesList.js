@@ -1,18 +1,19 @@
 import "./ServicesList.css";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 
 import { Link } from "react-router-dom";
 // ui
 import { Button, Radio, Divider, List, Space } from "antd";
 
+import { AppContext } from "../../App";
+
 function ServicesList() {
+  const { selectedService, setSelectedService } = useContext(AppContext);
+
   const [services, setServices] = useState([]);
-  const [activeService, setActiveService] = useState(1);
-
   const onChange = (e) => {
-    setActiveService(e.target.value);
+    setSelectedService(e.target.value);
   };
-
   useEffect(() => {
     fetch("http://localhost:3000/haircut-services")
       .then((response) => response.json())
@@ -26,7 +27,7 @@ function ServicesList() {
       <Radio.Group
         className="servicesList"
         onChange={onChange}
-        value={activeService}
+        value={selectedService}
       >
         <Space direction="vertical">
           {services.map((service) => (
