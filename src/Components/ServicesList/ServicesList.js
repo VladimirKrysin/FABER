@@ -30,11 +30,11 @@ function ServicesList() {
         <Radio.Group
           className="servicesList"
           onChange={onChange}
-          value={activeService}
+          value={selectedService}
         >
           <Space direction="vertical">
             {services.map((service) => (
-              <Radio value={service.id}>
+              <Radio value={service.name}>
                 {service.name} ({service.price} руб., {service.duration} мин.)
               </Radio>
             ))}

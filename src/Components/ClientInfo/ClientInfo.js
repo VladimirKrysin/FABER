@@ -1,19 +1,23 @@
 import "./ClientInfo.css";
 import { useState } from 'react';
 import { Button } from 'antd';
-
+import { Link, useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import { AppContext } from "../../App";
 
 function ClientInfo() {
+  const navigate = useNavigate();
+
+  const { selectedDate, selectedService, selectedMaster, selectedTime } = useContext(AppContext);
+
   const [clientName, setClientName] = useState('');
   const [phone, setPhone] = useState('');
   const [email, setEmail] = useState('');
   const [comment, setComment] = useState('');
-  const master = 'Алексей';
-  const date = '04-11-2024';
-  const time = '12-30';
-  const serviceName = 'Мужская стрижка (700 руб., 45 мин.)';
+  // const master = 'Алексей';
+  // // const date = '04-11-2024'
+  // const time = '12-30';
+  // const serviceName = 'Мужская стрижка (700 руб., 45 мин.)';
 
   const [size, setSize] = useState('large');
 
@@ -28,18 +32,25 @@ function ClientInfo() {
         phone,
         email,
         comment,
-        master,
-        date,
-        time,
-        serviceName
+        master: selectedMaster,
+        date: selectedDate.toLocaleDateString("en", {
+          day: "2-digit",
+          month: "2-digit",
+          year: "numeric",
+        })
+          .replaceAll("/", "-"),
+        time: selectedTime,
+        serviceName: selectedService
       })
     });
 
     const result = await response.json();
+    if (result.success) {
+      navigate("/end-page")
+    }
     console.log(result);
   };
-  const { selectedDate, selectedService, selectedMaster } =
-    useContext(AppContext);
+
 
   return (
     <>

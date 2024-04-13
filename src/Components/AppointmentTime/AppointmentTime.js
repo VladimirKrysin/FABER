@@ -12,7 +12,8 @@ import { AppContext } from "../../App";
 
 function AppointmentTime() {
   // global state
-  const { selectedDate, setSelectedDate } = useContext(AppContext);
+  const { selectedDate, setSelectedDate, selectedMaster, setSelectedMaster, selectedTime,
+    setSelectedTime } = useContext(AppContext);
 
   // component state
   const [masters, setMasters] = useState({});
@@ -28,53 +29,66 @@ function AppointmentTime() {
   return (
     <>
       <div className="container">
-        <div>
-          {Object.keys(masters).map((master) => (
-            <div key={master}>
-              <div className="master">{master}</div>
-            </div>
-          ))}
-        </div>
-        <div className="datePickerContainer">
-          <DatePicker
-            selected={selectedDate}
-            onChange={(date) => setSelectedDate(date)}
-            inline
-            locale={ru}
-          />
-        </div>
-        {Object.keys(masters).length !== 0 &&
-        masters["Алексей"][
-          selectedDate
-            .toLocaleDateString("en", {
-              day: "2-digit",
-              month: "2-digit",
-              year: "numeric",
-            })
-            .replaceAll("/", "-")
-        ] ? (
-          <div>
-            {Object.entries(
-              masters["Алексей"][
-                selectedDate
-                  .toLocaleDateString("en", {
-                    day: "2-digit",
-                    month: "2-digit",
-                    year: "numeric",
-                  })
-                  .replaceAll("/", "-")
-              ]
-            ).map(([time, appointmentData]) => (
-              <Button>{time}</Button>
+        <div className="masters_wrapper">
+          <div>Выберите мастера</div>
+          <div clientName="masters-list">
+            {Object.keys(masters).map((master) => (
+              <div key={master}>
+                <Button type={selectedMaster === master ? "primary" : "secondary"} className="master" onClick={() => setSelectedMaster(master)}>{master}</Button>
+              </div>
             ))}
           </div>
-        ) : (
-          <div></div>
-        )}
+        </div>
+        <div className="dateTime_wrapper">
+          <div className="datePickerContainer">
+            <DatePicker
+              selected={selectedDate}
+              onChange={(date) => setSelectedDate(date)}
+              inline
+              locale={ru}
+            />
+          </div>
+          {masters[selectedMaster] &&
+            masters[selectedMaster][
+            selectedDate
+              .toLocaleDateString("en", {
+                day: "2-digit",
+                month: "2-digit",
+                year: "numeric",
+              })
+              .replaceAll("/", "-")
+            ] ? (
+            <>
+              <div className="time-slots">
+                {Object.entries(
+                  masters[selectedMaster][
+                  selectedDate
+                    .toLocaleDateString("en", {
+                      day: "2-digit",
+                      month: "2-digit",
+                      year: "numeric",
+                    })
+                    .replaceAll("/", "-")
+                  ]
+                ).map(([time, appointmentData]) =>
+                  appointmentData.appointment.clientName && appointmentData.appointment.phone ? <Button disabled>{time}</Button> :
+                    <Button type={selectedTime === time ? "primary" : ""} onClick={() => setSelectedTime(time)}>{time}</Button>
+                )}
+              </div>
+              {selectedTime && (
+                <Link to="/client-info">
+                  <Button className="next_button" type="primary" size={size}>Далее</Button>
+                </Link>
+              )}
+            </>
+          ) : (
+            <div></div>
+          )}
+        </div>
       </div>
-      <Link to="/client-info">
+      {/* <Link to="/client-info">
         <Button className="next_button" type="primary" size={size}>Далее</Button>
-      </Link>
+      </Link> */}
     </>
   );
 }

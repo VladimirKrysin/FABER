@@ -1,0 +1,26 @@
+.container {
+  margin-left: 12.5rem;
+}
+
+.dateTime_wrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+.datePickerContainer {
+  margin-bottom: 1.2rem;
+}
+
+.time-slots {
+  display: grid;
+  grid-template-columns: 6rem 6rem 6rem 6rem;
+  margin-bottom: 2.5rem;
+}
+
+.next_button {
+  margin-left: 8.5rem;
+}
+
+.master {
+  width: 6.25rem;
+}
